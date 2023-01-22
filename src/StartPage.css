@@ -1,9 +1,85 @@
-.image-container {
-    display: block;
-    width: 100%;
+.Start {
     height: 100vh;
-    padding-bottom: 0px;
-    object-fit: cover;
+    width: 100vw;
+    overflow-y: hidden;
+}
+
+.toolbar {
+    height: auto;
+}
+
+.floating-box {
+    box-shadow: 2px 2px 2px 0px black;
+    border-radius: 10px;
+    position: absolute;
+    right: 10%;
+    top: 25%;
+    height: 50%;
+    width: 35%;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.text-box {
+    width: 75%;
+    padding-top: 12.5%;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+    font-size: 40px;
+    font-family: UberMove, UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 44px;
+    color: currentColor;
+    letter-spacing: 0;
+    margin: 0;
+}
+
+.small-text-box {
+    padding-top: 5%;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+    color: currentColor;
+    letter-spacing: 0;
+    font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 24px;
+}
+
+.signup-button {
+    padding-top: 5%;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+    font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 24px;
+    color: black;
+}
+
+
+.more-info {
+    padding-top: 5%;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+    font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 24px;
+    color: black;
+}
+
+.hr-thin-line {
+    margin: 0%;
+    width: 37%;
+    margin-left: 12.5%;
+    padding-right: 12.5%;
+    border: 1px solid #000;
+}
+
+.image-container {
+    height: 100%;
+    width: 100%;
 }
 
 .img {
