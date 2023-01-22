@@ -6,7 +6,7 @@ import StartPage from './StartPage';
 import Login from "./Login/Login";
 import Help from "./Help";
 import App from "./Map";
-import SanLuisObispoMap from './Map';
+import Map from './Map';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +15,7 @@ root.render(
         <Route path="/" element={<StartPage />} />
         <Route path="/help" element={<Help />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/maps" element={<SanLuisObispoMap />} />
+        <Route path="/maps" element={<Map />} />
     </Routes>
   </BrowserRouter>
 );

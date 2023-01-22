@@ -51,7 +51,7 @@ function Start() {
 				},
 			});
 		}
-		if(state.login && state.name !== "" && state.username !== "" && state.password !== "") {
+		if(state.login && state.username !== "" && state.password !== "") {
 			//login
 			navigate("/maps", {
 				state: {
@@ -70,7 +70,7 @@ function Start() {
 		}
 	}
 
-	const inputs = [
+	const signupinput = [
 		{
 			id: 1,
 			name: "name",
@@ -100,6 +100,27 @@ function Start() {
 		},
 	];
 
+	const logininput = [
+		{
+			id: 1,
+			name: "username",
+			type: "text",
+			placeholder: "Username",
+			label: "Username",
+			required: true,
+			errorMessage: "Please enter a valid username."
+		},
+		{
+			id: 2,
+			name: "password",
+			type: "text",
+			placeholder: "Password",
+			label: "Password",
+			required: true,
+			errorMessage: "Please enter a valid password."
+		},
+	];
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
@@ -111,23 +132,31 @@ function Start() {
 	return (
 		<div className="App">
 			<form onSubmit={handleSubmit}>
-				<h1>{state.login ? "Login" : "Sign Up"}</h1>
-				{state.login ? (inputs.slice(1).map((input) => (
-					<FormInput
-						key={input.id}
-						{...input}
-						value={state[input.name]}
-						onChange={onChange}
-					/>
-				))) :
-				(inputs.map((input) => (
-					<FormInput
-						key={input.id}
-						{...input}
-						value={state[input.name]}
-						onChange={onChange}
-					/>
-				)))}
+				{state.login ?
+					<>
+						<h1>Login</h1>
+						{logininput.map((input) => (
+							<FormInput
+								key={input.id}
+								{...input}
+								value={state[input.name]}
+								onChange={onChange}
+							/>
+						))}
+					</>
+				:
+					<>
+						<h1>Sign Up</h1>
+						{signupinput.map((input) => (
+							<FormInput
+								key={input.id}
+								{...input}
+								value={state[input.name]}
+								onChange={onChange}
+							/>
+						))}
+					</>
+				}
 				<p style= {{
 					color: "red",
 				}}>{state.error}</p>
