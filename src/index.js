@@ -9,12 +9,11 @@ import { ConfigurationOptions } from 'aws-sdk'
 
 const configuration: ConfigurationOptions = {
     region: 'us-east-1',
-    secretAccessKey: 'reqFzh5NHNuyjclGZ5IL1symt046+HLPEvCL4zrN',
-    accessKeyId: 'AKIA5YBWJE27NJHAHVW2'
+    secretAccessKey: config.AWS_SECRET_KEY,
+    accessKeyId: config.ACCESS_KEY_ID
 }
 
 AWS.config.update(configuration)
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
