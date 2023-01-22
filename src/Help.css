@@ -1,0 +1,22 @@
+.help-support-page {
+    padding: 20px;
+  }
+
+  .faq h2 {
+    margin-top: 20px;
+  }
+
+  .list-group-flush {
+    margin-top: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  span {
+    font-size: 12px;
+    padding: 3px;
+    color: black;
+    display: none;
+}
