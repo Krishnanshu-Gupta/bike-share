@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
-import FormInput from "./components/FormInput";
-import { TurnedIn } from "@material-ui/icons";
+import FormInput from "../components/FormInput";
+import {fetchData , putData} from '../components/AWS_Functions';
 
 function Start() {
 	const params = useLocation();
 	let navigate = useNavigate();
 
 	const [state, setState] = useState({
-		email: "",
 		name: "",
+		username: "",
 		password: "",
 		login: true
 	});
@@ -23,15 +23,40 @@ function Start() {
 		setState({...state, login: params.state.login});
 	}
 
+
+	async function addSignUpDatatoUserDB(username, name, password, bikes) {
+		const userData = {
+			'username': username,
+			'name': name,
+			'password': password,
+			'bikes': bikes
+		}
+		await putData('users', userData)
+	}
+
+	async function validateLogin(username, password) {
+
+	}
+
 	function handleContinue() {
-		var email = state.email, name = state.name, password = state.password;
-		if (state.email !== "" && state.name !== "" && state.password !== "") {
-			//ISHAAN PUSH DATA from here
-			
+		var name = state.name, username = state.username, password = state.password;
+		if(!state.login && state.name !== "" && state.username !== "" && state.password !== "") {
+			//signup
+			addSignUpDatatoUserDB(username, name, password, '{}')
 			navigate("/maps", {
 				state: {
-					email,
 					name,
+					username,
+					password
+				},
+			});
+		}
+		if(state.login && state.name !== "" && state.username !== "" && state.password !== "") {
+			//login
+			navigate("/maps", {
+				state: {
+					name,
+					username,
 					password
 				},
 			});

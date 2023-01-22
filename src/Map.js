@@ -1,24 +1,40 @@
-import { useMemo } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React, { useRef, useEffect, useState } from 'react';
+import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
- function Home() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyC3eSorRjj0fCCZ_o52CqXvxDLeB_ZhFao',
-  });
+mapboxgl.accessToken = 'pk.eyJ1Ijoiam9lbWMiLCJhIjoiY2xkNnRodHZtMHNqbTNwbzR2d2ZlY2hwNSJ9.cu3V1_fjjjX2MkbcVfiFzA';
 
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
+export default function SanLuisObispoMap() {
+	const mapContainer = useRef(null);
+	const map = useRef(null);
+	const [lat, setLat] = useState(35.2827);
+	const [lng, setLng] = useState(-120.6596);
+	const [zoom, setZoom] = useState(13);
+
+	useEffect(() => {
+		if (map.current) return; // initialize map only once
+		map.current = new mapboxgl.Map({
+			container: mapContainer.current,
+			style: 'mapbox://styles/mapbox/streets-v12',
+			center: [lng, lat],
+			zoom: zoom
+			});
+	});
+
+	useEffect(() => {
+		if (!map.current) return; // wait for map to initialize
+		map.current.on('move', () => {
+			setLng(map.current.getCenter().lng.toFixed(4));
+			setLat(map.current.getCenter().lat.toFixed(4));
+			setZoom(map.current.getZoom().toFixed(2));
+			});
+	});
+
+	return (
+		<div>
+			<div className="sidebar">
+				Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+			</div>
+			<div style={{width: "100%", height: "100%"}} ref={mapContainer} className="map-container" />
+		</div>
+	);
 }
-
-function Map() {
-  const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
-
-  console.log("RENDERING MAP...");
-  return (
-    <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
-      <Marker position={center} />
-    </GoogleMap>
-  );
-}
-
-export default Home;

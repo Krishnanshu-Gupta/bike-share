@@ -35,7 +35,7 @@ export const putData = (tableName , data) => {
         TableName: tableName,
         Item: data
     }
-    
+
     docClient.put(params, function (err, data) {
         if (err) {
             console.log('Error', err)
@@ -53,7 +53,7 @@ import {fetchData , putData} from './components/AWS_Functions';
 const fetchDataFormDynamoDb = async () => {
     await fetchData('users')
   }
-  
+
   const addDataToDynamoDB = async () => {
     const userData = {
       'username': 'akeen',
@@ -61,7 +61,37 @@ const fetchDataFormDynamoDb = async () => {
       'password': 'akeen-pass',
       'bikes': '{}'
     }
-    
+
+    await putData('users' , userData)
+  }
+
+function StartPage() {
+  return (
+    <div className="App">
+        <button onClick={() => fetchDataFormDynamoDb()}> Fetch </button>
+        <button onClick={() => addDataToDynamoDB()}> Put </button>
+        <img src="bike.jpeg" className='image-container' alt="logo" />
+    </div>
+  );
+}
+*/
+/*
+
+import './StartPage.css';
+import {fetchData , putData} from './components/AWS_Functions';
+
+const fetchDataFormDynamoDb = async () => {
+    await fetchData('users')
+  }
+
+  const addDataToDynamoDB = async () => {
+    const userData = {
+      'username': 'akeen',
+      'name': 'Aaron Keen',
+      'password': 'akeen-pass',
+      'bikes': '{}'
+    }
+
     await putData('users' , userData)
   }
 
