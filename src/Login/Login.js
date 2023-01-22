@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Login.css";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import FormInput from "../components/FormInput";
-import {fetchData , putData} from '../components/AWS_Functions';
+import {fetchData , putData, queryData} from '../components/AWS_Functions';
 
 function Start() {
 	const params = useLocation();
@@ -34,15 +34,11 @@ function Start() {
 		await putData('users', userData)
 	}
 
-	async function validateLogin(username, password) {
-
-	}
-
-	function handleContinue() {
+	async function handleContinue() {
 		var name = state.name, username = state.username, password = state.password;
 		if(!state.login && state.name !== "" && state.username !== "" && state.password !== "") {
 			//signup
-			addSignUpDatatoUserDB(username, name, password, '{}')
+			addSignUpDatatoUserDB(username, name, password, '{}');
 			navigate("/maps", {
 				state: {
 					name,
@@ -53,19 +49,36 @@ function Start() {
 		}
 		if(state.login && state.username !== "" && state.password !== "") {
 			//login
-			navigate("/maps", {
-				state: {
-					name,
-					username,
-					password
-				},
-			});
+            const userData = {
+                'username': username,
+                'password': password
+            }
+            var db_pass = await queryData('users', userData);
+            let passed = false;
+            if (db_pass === password) {
+                passed = true;
+            }
+            if (!passed) {
+                var error = "Invalid username or password.";
+                setState({
+                    ...state,
+                    "error": error
+                });
+            } else {
+                navigate("/maps", {
+                    state: {
+                        name,
+                        username,
+                        password
+                    },
+                });
+            }
 		}
 		else {
-			var error = "Field(s) are blank.";
+			var blank_error = "Field(s) are blank.";
 			setState({
 				...state,
-				"error": error
+				"error": blank_error
 			});
 		}
 	}
